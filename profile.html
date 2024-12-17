@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Profile</title>
+    <style>
+        /* Resetting margin and padding */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f0f4f8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .form-container {
+            background-color: white;
+            padding: 30px;
+            width: 80%;
+            max-width: 800px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow-y: auto;
+            max-height: 90vh;
+        }
+
+        h1 {
+            text-align: center;
+            color: #1d3557;
+        }
+
+        h2 {
+            margin-top: 20px;
+            margin-bottom: 10px;
+            color: #457b9d;
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+            color: #333;
+            font-weight: bold;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        textarea {
+            resize: none;
+        }
+
+        button {
+            margin-top: 20px;
+            width: 100%;
+            padding: 12px;
+            background-color: #457b9d;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #1d3557;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h1>Patient Profile</h1>
+        <form action="save_profile.php" method="POST">
+            <h2>1. Personal and Contact Information</h2>
+            <label>Full Name:</label>
+            <input type="text" name="fullName" required>
+
+            <label>Age:</label>
+            <input type="number" name="age" required>
+
+            <label>Gender:</label>
+            <select name="gender" required>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+            </select>
+
+            <label>Contact Number:</label>
+            <input type="tel" name="contactNumber" required>
+
+            <label>Email:</label>
+            <input type="email" name="email" required>
+
+            <label>Emergency Contact:</label>
+            <input type="text" name="emergencyContact" required>
+
+            <label>Address:</label>
+            <textarea name="address" rows="2" required></textarea>
+
+            <h2>2. Medical History</h2>
+            <label>Chronic Conditions:</label>
+            <textarea name="chronicConditions" rows="2"></textarea>
+
+            <label>Past Surgeries/Procedures:</label>
+            <textarea name="surgeries" rows="2"></textarea>
+
+            <label>Allergies:</label>
+            <textarea name="allergies" rows="2"></textarea>
+
+            <label>Current Medications:</label>
+            <textarea name="currentMedications" rows="2"></textarea>
+
+            <label>Family Medical History:</label>
+            <textarea name="familyHistory" rows="2"></textarea>
+
+            <h2>3. Recent Symptoms and Health Concerns</h2>
+            <label>Recent Symptoms:</label>
+            <textarea name="symptomLog" rows="2"></textarea>
+
+            <label>Current Health Concerns:</label>
+            <textarea name="healthConcerns" rows="2"></textarea>
+
+            <h2>4. Vitals and Lab Results</h2>
+            <label>Basic Vitals:</label>
+            <textarea name="vitals" rows="2"></textarea>
+
+            <label>Lab Results:</label>
+            <textarea name="labResults" rows="2"></textarea>
+
+            <h2>5. Lifestyle</h2>
+            <label>Dietary Habits:</label>
+            <textarea name="diet" rows="2"></textarea>
+
+            <label>Exercise and Physical Activity:</label>
+            <textarea name="exercise" rows="2"></textarea>
+
+            <label>Social Habits (Smoking, Alcohol):</label>
+            <textarea name="socialHabits" rows="2"></textarea>
+
+            <h2>6. Mental Health</h2>
+            <label>Mental Health History:</label>
+            <textarea name="mentalHistory" rows="2"></textarea>
+
+            <label>Current Mental Health Concerns:</label>
+            <textarea name="currentMentalConcerns" rows="2"></textarea>
+
+            <label>Support Systems:</label>
+            <textarea name="supportSystems" rows="2"></textarea>
+
+            <h2>7. Insurance</h2>
+            <label>Insurance Details:</label>
+            <textarea name="insuranceDetails" rows="2"></textarea>
+
+            <label>Billing Information:</label>
+            <textarea name="billingInfo" rows="2"></textarea>
+
+            <h2>8. Consent and Preferences</h2>
+            <label>Consent for Virtual Assistance:</label>
+            <select name="virtualConsent" required>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+            </select>
+
+            <label>Preferred Communication Method:</label>
+            <select name="communicationMethod" required>
+                <option value="Video Call">Video Call</option>
+                <option value="Voice Call">Voice Call</option>
+                <option value="Chat">Chat</option>
+            </select>
+
+            <label>Notification Preferences:</label>
+            <textarea name="notificationPreferences" rows="2"></textarea>
+
+            <button type="submit">Save Profile</button>
+        </form>
+    </div>
+</body>
+</html>

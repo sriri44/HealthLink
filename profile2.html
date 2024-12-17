@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Profile with MetaMask</title>
+    <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
+    <style>
+        /* Resetting margin and padding */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f0f4f8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .form-container {
+            background-color: white;
+            padding: 30px;
+            width: 80%;
+            max-width: 800px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow-y: auto;
+            max-height: 90vh;
+        }
+
+        h1 {
+            text-align: center;
+            color: #1d3557;
+        }
+
+        h2 {
+            margin-top: 20px;
+            margin-bottom: 10px;
+            color: #457b9d;
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+            color: #333;
+            font-weight: bold;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        textarea {
+            resize: none;
+        }
+
+        button {
+            margin-top: 20px;
+            width: 100%;
+            padding: 12px;
+            background-color: #457b9d;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #1d3557;
+        }
+
+        #walletAddress {
+            font-weight: bold;
+            color: #457b9d;
+        }
+
+        .form-section {
+            margin-top: 30px;
+        }
+
+        .form-section h2 {
+            color: #1d3557;
+        }
+
+        .form-section label {
+            color: #333;
+        }
+
+        /* Health Card Style */
+        .health-card {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+
+        .health-card h3 {
+            color: #457b9d;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .health-card .info {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .health-card .info .item {
+            font-weight: bold;
+        }
+
+        /* Initially hide the raw JSON format */
+        #profileDetails {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h1>Patient Profile with MetaMask</h1>
+
+        <!-- Connect MetaMask -->
+        <button id="connectWallet">Connect MetaMask</button>
+        <p id="walletAddress">Wallet Address: Not Connected</p>
+
+        <div class="form-section">
+            <h2>1. Personal Information</h2>
+            <form id="profileForm">
+                <label for="name">Name:</label>
+                <input type="text" id="name" required />
+
+                <label for="age">Age:</label>
+                <input type="number" id="age" required />
+
+                <label for="gender">Gender:</label>
+                <select id="gender" required>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Other">Other</option>
+                </select>
+
+                <label for="contactNumber">Contact Number:</label>
+                <input type="tel" id="contactNumber" required />
+
+                <label for="email">Email:</label>
+                <input type="email" id="email" required />
+
+                <label for="ethAddress">Ethereum Address:</label>
+                <input type="text" id="ethAddress" placeholder="e.g., 0x123..." /><br><br>
+
+                <label for="emergencyContact">Emergency Contact:</label>
+                <input type="text" id="emergencyContact" required />
+
+                <label for="address">Address:</label>
+                <textarea id="address" rows="2" required></textarea>
+
+                <h2>2. Medical History</h2>
+                <label for="chronicConditions">Chronic Conditions:</label>
+                <textarea id="chronicConditions" rows="2"></textarea>
+
+                <label for="surgeries">Past Surgeries/Procedures:</label>
+                <textarea id="surgeries" rows="2"></textarea>
+
+                <label for="allergies">Allergies:</label>
+                <textarea id="allergies" rows="2"></textarea>
+
+                <label for="currentMedications">Current Medications:</label>
+                <textarea id="currentMedications" rows="2"></textarea>
+
+                <label for="familyHistory">Family Medical History:</label>
+                <textarea id="familyHistory" rows="2"></textarea>
+
+                <h2>3. Recent Symptoms and Health Concerns</h2>
+                <label for="symptomLog">Recent Symptoms:</label>
+                <textarea id="symptomLog" rows="2"></textarea>
+
+                <label for="healthConcerns">Current Health Concerns:</label>
+                <textarea id="healthConcerns" rows="2"></textarea>
+
+                <h2>4. Vitals and Lab Results</h2>
+                <label for="vitals">Basic Vitals:</label>
+                <textarea id="vitals" rows="2"></textarea>
+
+                <label for="labResults">Lab Results:</label>
+                <textarea id="labResults" rows="2"></textarea>
+
+                <h2>5. Lifestyle</h2>
+                <label for="diet">Dietary Habits:</label>
+                <textarea id="diet" rows="2"></textarea>
+
+                <label for="exercise">Exercise and Physical Activity:</label>
+                <textarea id="exercise" rows="2"></textarea>
+
+                <label for="socialHabits">Social Habits (Smoking, Alcohol):</label>
+                <textarea id="socialHabits" rows="2"></textarea>
+
+                <h2>6. Mental Health</h2>
+                <label for="mentalHistory">Mental Health History:</label>
+                <textarea id="mentalHistory" rows="2"></textarea>
+
+                <label for="currentMentalConcerns">Current Mental Health Concerns:</label>
+                <textarea id="currentMentalConcerns" rows="2"></textarea>
+
+                <label for="supportSystems">Support Systems:</label>
+                <textarea id="supportSystems" rows="2"></textarea>
+
+                <h2>7. Insurance</h2>
+                <label for="insuranceDetails">Insurance Details:</label>
+                <textarea id="insuranceDetails" rows="2"></textarea>
+
+                <label for="billingInfo">Billing Information:</label>
+                <textarea id="billingInfo" rows="2"></textarea>
+
+                <h2>8. Consent and Preferences</h2>
+                <label for="virtualConsent">Consent for Virtual Assistance:</label>
+                <select id="virtualConsent" required>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                </select>
+
+                <label for="communicationMethod">Preferred Communication Method:</label>
+                <select id="communicationMethod" required>
+                    <option value="Video Call">Video Call</option>
+                    <option value="Voice Call">Voice Call</option>
+                    <option value="Chat">Chat</option>
+                </select>
+
+                <label for="notificationPreferences">Notification Preferences:</label>
+                <textarea id="notificationPreferences" rows="2"></textarea>
+
+                <button type="submit">Submit Profile</button>
+            </form>
+        </div>
+
+        <!-- Display Health Card -->
+        <div id="healthCard" class="health-card" style="display: none;">
+            <h3>Patient Health Card</h3>
+            <div class="info">
+                <div class="item">Name:</div>
+                <div id="displayName"></div>
+
+                <div class="item">Age:</div>
+                <div id="displayAge"></div>
+
+                <div class="item">Gender:</div>
+                <div id="displayGender"></div>
+
+                <div class="item">Contact Number:</div>
+                <div id="displayContactNumber"></div>
+
+                <div class="item">Email:</div>
+                <div id="displayEmail"></div>
+
+                <div class="item">Emergency Contact:</div>
+                <div id="displayEmergencyContact"></div>
+
+                <div class="item">Ethereum Address:</div>
+                <div id="displayEthAddress"></div>
+
+                <div class="item">Address:</div>
+                <div id="displayAddress"></div>
+            </div>
+        </div>
+
+        <!-- Raw JSON format hidden -->
+        <pre id="profileDetails"></pre>
+    </div>
+
+    <script>
+        let accounts;
+
+        // Connect to MetaMask
+        document.getElementById("connectWallet").addEventListener("click", async () => {
+            if (window.ethereum) {
+                try {
+                    // Request wallet connection
+                    accounts = await window.ethereum.request({ method: "eth_requestAccounts" });
+
+                    document.getElementById("walletAddress").innerText = "Wallet Address: " + accounts[0];
+                    console.log("Connected Account:", accounts[0]);
+                } catch (error) {
+                    console.error("User denied account access:", error);
+                }
+            } else {
+                alert("Please install MetaMask to use this feature!");
+            }
+        });
+
+        // Handle Profile Submission
+        const profileForm = document.getElementById("profileForm");
+        profileForm.addEventListener("submit", (e) => {
+            e.preventDefault();
+
+            const profile = {
+                name: document.getElementById("name").value,
+                age: document.getElementById("age").value,
+                gender: document.getElementById("gender").value,
+                contactNumber: document.getElementById("contactNumber").value,
+                email: document.getElementById("email").value,
+                ethAddress: document.getElementById("ethAddress").value || accounts[0],
+                emergencyContact: document.getElementById("emergencyContact").value,
+                address: document.getElementById("address").value,
+                chronicConditions: document.getElementById("chronicConditions").value,
+                surgeries: document.getElementById("surgeries").value,
+                allergies: document.getElementById("allergies").value,
+                currentMedications: document.getElementById("currentMedications").value,
+                familyHistory: document.getElementById("familyHistory").value,
+                symptomLog: document.getElementById("symptomLog").value,
+                healthConcerns: document.getElementById("healthConcerns").value,
+                vitals: document.getElementById("vitals").value,
+                labResults: document.getElementById("labResults").value,
+                diet: document.getElementById("diet").value,
+                exercise: document.getElementById("exercise").value,
+                socialHabits: document.getElementById("socialHabits").value,
+                mentalHistory: document.getElementById("mentalHistory").value,
+                currentMentalConcerns: document.getElementById("currentMentalConcerns").value,
+                supportSystems: document.getElementById("supportSystems").value,
+                insuranceDetails: document.getElementById("insuranceDetails").value,
+                billingInfo: document.getElementById("billingInfo").value,
+                virtualConsent: document.getElementById("virtualConsent").value,
+                communicationMethod: document.getElementById("communicationMethod").value,
+                notificationPreferences: document.getElementById("notificationPreferences").value
+            };
+
+            if (Object.values(profile).some(value => !value)) {
+                alert("All fields are required!");
+                return;
+            }
+
+            // Hide JSON Format
+            document.getElementById("profileDetails").style.display = "none";
+
+            // Show Health Card
+            document.getElementById("healthCard").style.display = "block";
+
+            // Populate Health Card with Profile Data
+            document.getElementById("displayName").innerText = profile.name;
+            document.getElementById("displayAge").innerText = profile.age;
+            document.getElementById("displayGender").innerText = profile.gender;
+            document.getElementById("displayContactNumber").innerText = profile.contactNumber;
+            document.getElementById("displayEmail").innerText = profile.email;
+            document.getElementById("displayEmergencyContact").innerText = profile.emergencyContact;
+            document.getElementById("displayEthAddress").innerText = profile.ethAddress;
+            document.getElementById("displayAddress").innerText = profile.address;
+            document.getElementById("displaychronicConditions").innerText = profile.chronicConditions;
+            document.getElementById("displaysurgeries").innerText = profile.surgeries;
+            document.getElementById("displaycurrentMedications").innerText = profile.currentMedications;
+            document.getElementById("displayinsuranceDetails").innerText = profile.insuranceDetails;
+            document.getElementById("displaycommunicationMethod").innerText = profile.communicationMethod;
+            
+
+            console.log("Patient Profile Created:", profile);
+        });
+    </script>
+</body>
+</html>

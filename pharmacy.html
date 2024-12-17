@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nearby Medical Stores</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: auto;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        input {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+
+        button {
+            padding: 10px 15px;
+            margin: 5px;
+            background-color: #4CAF50; /* Green */
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .info-text {
+            color: #555;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Find Nearby Medical Stores</h1>
+        <label for="location">Enter your current location:</label>
+        <input type="text" id="location" placeholder="e.g. New York, NY">
+        <button id="searchBtn">Search</button>
+        <button id="currentLocationBtn">Use Current Location</button>
+        <p class="info-text">Click the button or press Enter to find nearby medical stores. Results will be highlighted on Google Maps.</p>
+    </div>
+    <script src="pharmacy.js"></script>
+</body>
+</html>

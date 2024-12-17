@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TeleHealth App</title>
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- Tidio Live Chat Integration -->
+    <script src="//code.tidio.co/cs31gyg4abxqo2z6yoctuwo3mtf9koll.js" async></script>
+
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #e0f7fa, #f1f8e9);
+        }
+
+        header nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #007bff;
+            color: white;
+            padding: 15px 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        nav ul {
+            list-style-type: none;
+            display: flex;
+            gap: 20px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+        nav ul li a:hover {
+            color: #ffeb3b;
+        }
+
+        .profile-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .icon {
+            cursor: pointer;
+            width: 35px;
+            height: 35px;
+        }
+
+        main {
+            display: flex;
+            padding: 40px;
+            text-align: left;
+        }
+
+        .left-section {
+            flex: 1;
+            padding-right: 20px; /* Space between left and right sections */
+        }
+
+        .right-section {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        h2 {
+            color: #007bff;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        p {
+            color: #555;
+            font-size: 1.1em;
+            max-width: 600px;
+            margin: 10px auto;
+            text-align: center;
+        }
+
+        .icons-row {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .icon-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: transform 0.2s;
+        }
+        .icon-container:hover {
+            transform: scale(1.1);
+        }
+
+        .icon-container div {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 26px;
+            cursor: pointer;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s, box-shadow 0.3s;
+        }
+
+        #call-icon { background-color: #28a745; }
+        #prescription-icon { background-color: #17a2b8; }
+        #appointment-icon { background-color: #ffc107; }
+        #pharmacy-icon { background-color: #dc3545; }
+        #healthtracker-icon { background-color: #6f42c1; }
+        #risk-calculator-icon { background-color: #007bff; }
+        #basic-health-info-icon { background-color: #20c997; }
+        #scan-me-icon { background-color: #17a2b8; }
+        #contact-us-icon { background-color: #e91e63; } /* Contact Us Icon */
+
+        .icon-container p {
+            margin-top: 8px;
+            font-size: 1.1em;
+            color: #333;
+        }
+
+        /* Slideshow styling */
+        .slideshow-container {
+            width: 100%;
+            max-width: 600px;
+            position: relative;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .slideshow-image {
+            width: 100%;
+            height: auto;
+            display: none;
+            opacity: 0;
+            transition: opacity 1.5s ease;
+        }
+
+        .slideshow-image.active {
+            display: block;
+            opacity: 1;
+        }
+
+        /* Start Consultation Button Styling */
+        button {
+            background-color: #a728a5; /* Green background */
+            color: white; /* White text */
+            font-size: 1.2em; /* Larger font */
+            padding: 15px 30px; /* Padding for a larger button */
+            border: none;
+            border-radius: 8px; /* Rounded corners */
+            cursor: pointer;
+            transition: all 0.3s ease-in-out; /* Smooth transition */
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.139); /* Soft shadow */
+            font-weight: bold; /* Bold text */
+            text-align: center;
+            width: auto;
+            margin: 20px 0; /* Spacing around the button */
+        }
+
+        button:hover {
+            background-color: #218838; /* Darker green when hovered */
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); /* Deeper shadow on hover */
+            transform: translateY(-2px); /* Slight lift effect */
+        }
+
+        button:focus {
+            outline: none; /* Remove outline when focused */
+        }
+
+        button:active {
+            transform: translateY(2px); /* Button presses down when clicked */
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <h1>TeleHealth</h1>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a id="aboutUsLink">About Us</a></li>
+                <li><a href="#" id="contactUsLink">Contact Us</a></li> <!-- Modified link -->
+            </ul>
+            <div class="profile-container">
+                <img src="https://static.vecteezy.com/system/resources/previews/020/765/399/original/default-profile-account-unknown-icon-black-silhouette-free-vector.jpg" 
+                     id="profileIcon" 
+                     alt="Profile Icon" 
+                     class="icon"
+                     onclick="navigateToProfile()"> <!-- Added onclick event -->
+                <div id="profile-text">Profile</div>
+            </div>
+            
+        </nav>
+    </header>
+
+    <main>
+        <section class="left-section">
+            <h2>Welcome to TeleHealth</h2>
+            <p>Access medical services, consultations, and health information remotely.</p>
+            <p id="userInfo"></p>
+            <button onclick="startConsultation()">Start Consultation</button>
+
+            <div class="icons-row">
+                <div class="icon-container">
+                    <div id="risk-calculator-icon" onclick="goToRiskCalculator()">⚠</div>
+                    <p>Risk Calculator</p>
+                </div>
+                <div class="icon-container">
+                    <div id="healthtracker-icon" onclick="goToHealthTracker()">📊</div>
+                    <p>HealthTracker</p>
+                </div>
+                <div class="icon-container">
+                    <div id="pharmacy-icon" onclick="goToPharmacy()">🏥</div>
+                    <p>Pharmacy</p>
+                </div>
+            </div>
+
+            <div class="icons-row">
+                <div class="icon-container">
+                    <div id="appointment-icon" onclick="scheduleAppointment()">📅</div>
+                    <p>Appointment</p>
+                </div>
+                <div class="icon-container">
+                    <div id="prescription-icon" onclick="checkPrescription()"><i class="fas fa-lungs-virus"></i>
+                    </i>
+                    </div>
+                    <p>Diseasefinder</p>
+                </div>
+                <div class="icon-container">
+                    <div id="call-icon" onclick="openVideoChat()"><i class="fas fa-video"></i></div>
+                    <p>Video Call</p>
+                </div>
+            </div>
+
+            <div class="icons-row">
+                <div class="icon-container">
+                    <div id="basic-health-info-icon" onclick="goToBasicHealthInfo()">🩺</div>
+                    <p>Basic Health Info</p>
+                </div>
+                <div class="icon-container">
+                    <div id="contact-us-icon" onclick="goToContactUs()">📝</div> <!-- Feedback Icon -->
+                    <p>Feedback</p>
+                </div>
+                <div class="icon-container">
+                    <div id="scan-me-icon" onclick="goToScanPage()">🔍</div>
+                    <p>MedicineInfo</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="right-section">
+            <div class="slideshow-container">
+                <img class="slideshow-image active" src="https://wallpapercave.com/wp/wp2968489.jpg" alt="Slideshow Image 1">
+                <img class="slideshow-image" src="https://wallpaperaccess.com/full/1189426.jpg" alt="Slideshow Image 2">
+                <img class="slideshow-image" src="https://resize.indiatvnews.com/en/resize/newbucket/1200_-/2021/03/health-1615427633.jpg" alt="Slide 3">
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 TeleHealth. All rights reserved.</p>
+    </footer>
+
+    <script>
+        document.getElementById('aboutUsLink').addEventListener('click', function() {
+            window.location.href = 'about.html';
+        });
+
+        // New Contact Us Link
+        document.getElementById('contactUsLink').addEventListener('click', function() {
+            window.location.href = 'contactus.html';
+        });
+
+        function openVideoChat() {
+           window.location.href = 'video.html';
+        }
+
+        // Slideshow logic
+        let slideIndex = 0;
+        showSlides();
+
+        function showSlides() {
+            let slides = document.querySelectorAll('.slideshow-image');
+            slides.forEach((slide, index) => {
+                slide.classList.remove('active');
+                if (index === slideIndex) {
+                    slide.classList.add('active');
+                }
+            });
+            slideIndex = (slideIndex + 1) % slides.length;
+            setTimeout(showSlides, 5000); // Change image every 5 seconds
+        }
+
+        function startConsultation() {
+            alert("Starting your consultation...");
+        }
+
+        function goToRiskCalculator() {
+            window.location.href = 'riskscore.html';
+        }
+
+        function goToHealthTracker() {
+            window.location.href = 'healthtracker.html';
+        }
+
+        function goToPharmacy() {
+            window.location.href = 'pharmacy.html';
+        }
+
+        function scheduleAppointment() {
+            window.location.href = 'appointment.html';
+        }
+
+        function checkPrescription() {
+            window.location.href = 'disease_finder.html';
+        }
+
+        function goToBasicHealthInfo() {
+            window.location.href = 'basic_health_info.html';
+        }
+
+        function goToScanPage() {
+            window.location.href = 'scan.html';
+        }
+
+        function goToContactUs() {
+            window.location.href = 'feedback.html';
+        }
+        function navigateToProfile() {
+    window.location.href = 'profile2.html';
+        }
+
+    </script>
+</body>
+</html>

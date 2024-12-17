@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Basic Health Info</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%);
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transform: translateY(20px);
+            opacity: 0;
+            animation: slideIn 0.8s forwards;
+        }
+
+        @keyframes slideIn {
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        h1 {
+            background: linear-gradient(135deg, #007bff, #00bfff);
+            color: white;
+            margin: 0;
+            padding: 25px;
+            text-align: center;
+            font-size: 32px;
+            letter-spacing: 2px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        h1::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.8), transparent);
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .content {
+            padding: 30px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 25px;
+        }
+
+        .age-group {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .age-group::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(180deg, #007bff, #00bfff);
+        }
+
+        .age-group:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 20px rgba(0,0,0,0.12);
+        }
+
+        h2 {
+            color: #007bff;
+            margin: 0 0 20px 0;
+            font-size: 24px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(90deg, #007bff, #00bfff);
+            border-radius: 2px;
+        }
+
+        .health-points {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .health-points li {
+            padding: 12px 0 12px 35px;
+            position: relative;
+            color: #444;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        .health-points li::before {
+            content: '•';
+            position: absolute;
+            left: 15px;
+            color: #007bff;
+            font-size: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                margin: 20px;
+            }
+            
+            .content {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 24px;
+                padding: 20px;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <h1>Essential Health Guidelines</h1>
+        <div class="content">
+            <div class="age-group">
+                <h2>Children (0-12 years)</h2>
+                <ul class="health-points">
+                    <li>Balanced nutrition with essential vitamins and minerals</li>
+                    <li>Regular immunizations and health check-ups</li>
+                    <li>60 minutes of active play daily</li>
+                    <li>9-12 hours of quality sleep</li>
+                    <li>Limited screen time and outdoor activities</li>
+                </ul>
+            </div>
+
+            <div class="age-group">
+                <h2>Teens (13-19 years)</h2>
+                <ul class="health-points">
+                    <li>Nutrient-rich diet for growth and development</li>
+                    <li>Regular physical activity and sports</li>
+                    <li>Mental health awareness and support</li>
+                    <li>8-10 hours of consistent sleep</li>
+                    <li>Balanced academic and social life</li>
+                </ul>
+            </div>
+
+            <div class="age-group">
+                <h2>Adults (20-59 years)</h2>
+                <ul class="health-points">
+                    <li>Balanced diet with portion control</li>
+                    <li>Regular exercise and fitness routine</li>
+                    <li>Stress management and mental wellness</li>
+                    <li>Regular health screenings</li>
+                    <li>Work-life balance maintenance</li>
+                </ul>
+            </div>
+
+            <div class="age-group">
+                <h2>Seniors (60+ years)</h2>
+                <ul class="health-points">
+                    <li>Nutrient-dense, easy-to-digest meals</li>
+                    <li>Gentle exercise and mobility activities</li>
+                    <li>Regular medical check-ups</li>
+                    <li>Social engagement and mental stimulation</li>
+                    <li>Medication management and care</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
